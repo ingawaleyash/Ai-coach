@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register | AI Coach Cricketer</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/auth.css' %}">
+
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <!-- LEFT SIDE -->
+
+    <div class="auth-brand">
+
+        <div class="brand-content">
+
+            <a href="{% url 'home' %}"
+               class="brand-logo">
+
+                🏏 AI Coach Cricketer
+
+            </a>
+
+            <h1>
+
+                Start Your<br>
+                <span>Cricket Journey.</span>
+
+            </h1>
+
+            <p>
+
+                Create your account and get ready to
+                analyze your batting technique with
+                intelligent cricket coaching.
+
+            </p>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Upload your batting videos
+
+            </div>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Analyze your cricket technique
+
+            </div>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Track your improvement
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="auth-form-section">
+
+        <div class="auth-form-container">
+
+            <div class="mobile-logo">
+
+                🏏 AI Coach Cricketer
+
+            </div>
+
+
+            <div class="form-heading">
+
+                <span class="small-title">
+                    GET STARTED
+                </span>
+
+                <h2>Create your account</h2>
+
+                <p>
+                    Join AI Coach Cricketer and start improving.
+                </p>
+
+            </div>
+
+
+            <!-- Messages -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-danger">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <!-- Registration Form -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control custom-input"
+                        placeholder="Choose a username"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control custom-input"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control custom-input"
+                        placeholder="Create a password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn login-btn">
+
+                    Create Account →
+
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Sign in
+                </a>
+
+            </div>
+
+
+            <a href="{% url 'home' %}"
+               class="back-home">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

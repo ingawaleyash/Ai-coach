@@ -1,0 +1,598 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 255px;
+    height: 100vh;
+
+    background: #08111f;
+    color: white;
+
+    padding: 25px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 5px 10px 35px;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #0d6efd;
+    border-radius: 11px;
+
+    font-size: 21px;
+}
+
+.sidebar-brand strong {
+    display: block;
+    font-size: 16px;
+}
+
+.sidebar-brand small {
+    color: #738197;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+
+/* ================= MENU ================= */
+
+.sidebar-section {
+    margin-bottom: 25px;
+}
+
+.sidebar-section > small {
+    color: #58677d;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    padding-left: 12px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #aab6c8;
+    text-decoration: none;
+
+    padding: 12px;
+    margin-top: 5px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition: 0.2s;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+}
+
+.sidebar-link.active {
+    background: #0d6efd;
+    color: white;
+}
+
+.sidebar-link span:first-child {
+    width: 20px;
+    text-align: center;
+}
+
+.coming-soon {
+    margin-left: auto;
+
+    font-size: 8px;
+    color: #64748b;
+
+    background: rgba(255, 255, 255, 0.06);
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+
+/* ================= USER ================= */
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px 8px;
+
+    border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.user-avatar,
+.top-avatar {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #0d6efd;
+    color: white;
+
+    border-radius: 50%;
+
+    font-weight: 700;
+}
+
+.user-details strong {
+    display: block;
+    font-size: 12px;
+}
+
+.user-details small {
+    color: #728097;
+    font-size: 10px;
+}
+
+.logout-link {
+    display: block;
+
+    color: #aab6c8;
+    text-decoration: none;
+
+    padding: 10px;
+
+    font-size: 12px;
+}
+
+.logout-link:hover {
+    color: #ff6b6b;
+}
+
+
+/* ================= MAIN ================= */
+
+.main-content {
+    margin-left: 255px;
+    padding: 35px 45px;
+
+    min-height: 100vh;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.page-label {
+    color: #0d6efd;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.top-bar h2 {
+    font-size: 27px;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+.top-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-user strong {
+    display: block;
+    font-size: 12px;
+}
+
+.top-user small {
+    color: #7b8799;
+    font-size: 10px;
+}
+
+
+/* ================= BANNER ================= */
+
+.welcome-banner {
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(13, 110, 253, 0.35),
+            transparent 35%
+        ),
+        #0b1829;
+
+    border-radius: 20px;
+
+    padding: 35px 40px;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    overflow: hidden;
+}
+
+.banner-label {
+    color: #6ea8fe;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.welcome-banner h1 {
+    font-size: 27px;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+.welcome-banner p {
+    color: #aab7ca;
+    margin: 8px 0 20px;
+    font-size: 13px;
+}
+
+.upload-button {
+    background: #0d6efd;
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 11px 18px;
+}
+
+.upload-button:hover {
+    background: #0b5ed7;
+    color: white;
+}
+
+.banner-icon {
+    font-size: 110px;
+    opacity: 0.8;
+    padding-right: 40px;
+}
+
+
+/* ================= STATS ================= */
+
+.stats-row {
+    margin-top: 25px;
+}
+
+.stat-card {
+    background: white;
+
+    border: 1px solid #e7ecf2;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    height: 100%;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 21px;
+}
+
+.stat-icon.blue {
+    background: #e8f1ff;
+}
+
+.stat-icon.purple {
+    background: #f0eaff;
+}
+
+.stat-icon.green {
+    background: #e5f8f0;
+}
+
+.stat-card span {
+    display: block;
+
+    color: #7b8799;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.stat-card h3 {
+    font-size: 27px;
+    font-weight: 800;
+
+    margin: 3px 0;
+}
+
+.stat-card small {
+    color: #98a2b1;
+    font-size: 10px;
+}
+
+
+/* ================= CONTENT CARDS ================= */
+
+.content-card {
+    background: white;
+
+    border: 1px solid #e7ecf2;
+
+    border-radius: 17px;
+
+    padding: 25px;
+
+    height: 100%;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #edf0f4;
+}
+
+.card-heading span:first-child {
+    color: #0d6efd;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.card-heading h4 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.card-emoji {
+    font-size: 30px;
+}
+
+.status-active {
+    background: #e7f7ef;
+    color: #16834d;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* ================= QUICK START ================= */
+
+.quick-content {
+    text-align: center;
+    padding: 30px 10px 10px;
+}
+
+.quick-icon {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.quick-content h5 {
+    font-weight: 700;
+}
+
+.quick-content p {
+    color: #7b8799;
+    font-size: 12px;
+    line-height: 1.7;
+
+    max-width: 450px;
+    margin: 8px auto 20px;
+}
+
+
+/* ================= AI STATUS ================= */
+
+.ai-status {
+    padding-top: 10px;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #edf0f4;
+
+    font-size: 12px;
+}
+
+.status-row strong {
+    font-size: 10px;
+}
+
+.ready {
+    color: #16834d;
+}
+
+.pending {
+    color: #9aa5b5;
+}
+
+.ai-note {
+    margin-top: 17px;
+
+    background: #f3f7fc;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    color: #6f7d91;
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* ================= RECENT ================= */
+
+.recent-card {
+    margin-top: 25px;
+}
+
+.empty-label {
+    color: #9aa5b5;
+    font-size: 10px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 45px 10px 25px;
+}
+
+.empty-icon {
+    font-size: 42px;
+    opacity: 0.7;
+}
+
+.empty-state h5 {
+    margin-top: 12px;
+    font-weight: 700;
+}
+
+.empty-state p {
+    color: #7b8799;
+    font-size: 12px;
+    margin: 8px 0 18px;
+}
+
+
+/* ================= MOBILE ================= */
+
+.mobile-navbar {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+        transition: 0.25s;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 25px 20px;
+    }
+
+    .mobile-navbar {
+        display: flex;
+
+        background: #08111f;
+        color: white;
+
+        padding: 15px 20px;
+
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mobile-brand {
+        font-weight: 700;
+    }
+
+    .menu-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+    }
+
+    .banner-icon {
+        display: none;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .top-user {
+        display: none;
+    }
+
+    .top-bar h2 {
+        font-size: 22px;
+    }
+
+    .welcome-banner {
+        padding: 25px;
+    }
+
+    .welcome-banner h1 {
+        font-size: 22px;
+    }
+
+}

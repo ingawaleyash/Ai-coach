@@ -1,0 +1,405 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AI Coach Cricketer</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/auth.css' %}">
+
+</head>
+
+
+<body>
+
+<div class="auth-page">
+
+    <!-- LEFT SIDE -->
+
+    <div class="auth-brand">
+
+        <div class="brand-content">
+
+            <a href="{% url 'home' %}"
+               class="brand-logo">
+
+                🏏 AI Coach Cricketer
+
+            </a>
+
+            <h1>
+
+                Train Smarter.<br>
+                <span>Play Better.</span>
+
+            </h1>
+
+            <p>
+
+                Use intelligent cricket analysis to
+                understand your technique and improve
+                your game.
+
+            </p>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Video-based cricket analysis
+
+            </div>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Personalized coaching insights
+
+            </div>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Track your performance
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="auth-form-section">
+
+        <div class="auth-form-container">
+
+            <div class="mobile-logo">
+
+                🏏 AI Coach Cricketer
+
+            </div>
+
+            <div class="form-heading">
+
+                <span class="small-title">
+                    WELCOME BACK
+                </span>
+
+                <h2>Sign in to your account</h2>
+
+                <p>
+                    Continue your cricket improvement journey.
+                </p>
+
+            </div>
+
+
+            <!-- Messages -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-danger">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <!-- Login Form -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control custom-input"
+                        placeholder="Enter your username"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control custom-input"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn login-btn">
+
+                    Sign In →
+
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+                    Create an account
+                </a>
+
+            </div>
+
+
+            <a href="{% url 'home' %}"
+               class="back-home">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AI Coach Cricketer</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/auth.css' %}">
+
+</head>
+
+
+<body>
+
+<div class="auth-page">
+
+    <!-- LEFT SIDE -->
+
+    <div class="auth-brand">
+
+        <div class="brand-content">
+
+            <a href="{% url 'home' %}"
+               class="brand-logo">
+
+                🏏 AI Coach Cricketer
+
+            </a>
+
+            <h1>
+
+                Train Smarter.<br>
+                <span>Play Better.</span>
+
+            </h1>
+
+            <p>
+
+                Use intelligent cricket analysis to
+                understand your technique and improve
+                your game.
+
+            </p>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Video-based cricket analysis
+
+            </div>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Personalized coaching insights
+
+            </div>
+
+            <div class="brand-feature">
+
+                <span>✓</span>
+                Track your performance
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="auth-form-section">
+
+        <div class="auth-form-container">
+
+            <div class="mobile-logo">
+
+                🏏 AI Coach Cricketer
+
+            </div>
+
+            <div class="form-heading">
+
+                <span class="small-title">
+                    WELCOME BACK
+                </span>
+
+                <h2>Sign in to your account</h2>
+
+                <p>
+                    Continue your cricket improvement journey.
+                </p>
+
+            </div>
+
+
+            <!-- Messages -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-danger">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <!-- Login Form -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control custom-input"
+                        placeholder="Enter your username"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control custom-input"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn login-btn">
+
+                    Sign In →
+
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+                    Create an account
+                </a>
+
+            </div>
+
+
+            <a href="{% url 'home' %}"
+               class="back-home">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
