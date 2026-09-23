@@ -596,3 +596,110 @@ body {
     }
 
 }
+
+
+/* ================= HISTORY LIST ================= */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 10px;
+    border-bottom: 1px solid #eef2f7;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.history-item:hover {
+    background: #f8fafc;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-icon {
+    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 12px;
+}
+
+.history-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-info strong {
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-info small {
+    color: #94a3b8;
+    font-size: 0.78rem;
+}
+
+.history-shot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 16px;
+}
+
+.history-shot span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.history-shot small {
+    font-size: 0.72rem;
+    color: #94a3b8;
+}
+
+.history-score {
+    text-align: center;
+    min-width: 54px;
+}
+
+.history-score strong {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #3b82f6;
+}
+
+.history-score small {
+    color: #94a3b8;
+    font-size: 0.75rem;
+}
+
+.badge-short {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+
+    .history-shot {
+        display: none;
+    }
+
+}

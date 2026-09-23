@@ -19,13 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t*6njrm6q$mhqw)#hvqie%motey$vf%u0gjx0v^fj+al2^$6su'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -163,11 +160,25 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = "mandatory"
 SOCIALACCOUNT_AUTO_SIGNUP = True
 
 SOCIALACCOUNT_QUERY_EMAIL = True
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
-https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
-https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
-https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
+
+# ==========================================
+# FILE UPLOAD LIMITS (validation)
+# ==========================================
+
+# Max upload size: 200 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024
+
+# ==========================================
+# SECURITY
+# ==========================================
+
+# Secret key from environment variable (fallback for local dev only)
+import os
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-t*6njrm6q$mhqw)#hvqie%motey$vf%u0gjx0v^fj+al2^$6su"
+)
+
+# Google OAuth credentials from environment (never hard-code in repo)
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")

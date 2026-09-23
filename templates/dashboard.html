@@ -299,7 +299,7 @@
                     </span>
 
                     <h3>
-                        0
+                        {{ total_videos }}
                     </h3>
 
                     <small>
@@ -328,7 +328,7 @@
                     </span>
 
                     <h3>
-                        0
+                        {{ completed_analyses }}
                     </h3>
 
                     <small>
@@ -357,11 +357,11 @@
                     </span>
 
                     <h3>
-                        --
+                        {% if best_score %}{{ best_score }}{% else %}--{% endif %}
                     </h3>
 
                     <small>
-                        Available after analysis
+                        Your highest technique score
                     </small>
 
                 </div>
@@ -484,8 +484,8 @@
                             Pose Detection
                         </span>
 
-                        <strong class="pending">
-                            Coming Soon
+                        <strong class="ready">
+                            Ready
                         </strong>
 
                     </div>
@@ -497,8 +497,21 @@
                             Shot Classification
                         </span>
 
-                        <strong class="pending">
-                            Coming Soon
+                        <strong class="ready">
+                            Baseline
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <span>
+                            Technique Scoring
+                        </span>
+
+                        <strong class="ready">
+                            Ready
                         </strong>
 
                     </div>
@@ -510,8 +523,8 @@
                             Coaching Feedback
                         </span>
 
-                        <strong class="pending">
-                            Coming Soon
+                        <strong class="ready">
+                            Ready
                         </strong>
 
                     </div>
@@ -521,8 +534,7 @@
 
                 <div class="ai-note">
 
-                    💡 AI analysis features will be
-                    activated in the next development phase.
+                    💡 Upload a video to run a full AI analysis.
 
                 </div>
 
@@ -552,35 +564,90 @@
             </div>
 
             <span class="empty-label">
-                No videos yet
+                {% if recent %}{{ total_analyses }} total{% else %}No videos yet{% endif %}
             </span>
 
         </div>
 
 
-        <div class="empty-state">
+        {% if recent %}
 
-            <div class="empty-icon">
-                📹
+            <div class="history-list">
+
+                {% for a in recent %}
+
+                    <a href="{% url 'analysis_result' a.pk %}"
+                       class="history-item">
+
+                        <div class="history-icon">
+                            {% if a.status == "COMPLETED" %}🎯{% elif a.status == "FAILED" %}⚠️{% else %}⏳{% endif %}
+                        </div>
+
+                        <div class="history-info">
+
+                            <strong>{{ a.title }}</strong>
+
+                            <small>{{ a.uploaded_at|date:"M j, Y" }}</small>
+
+                        </div>
+
+                        <div class="history-shot">
+
+                            <span>{{ a.detected_shot|default:"—" }}</span>
+
+                            <small>{{ a.status|title }}</small>
+
+                        </div>
+
+                        <div class="history-score">
+
+                            {% if a.status == "COMPLETED" %}
+
+                                <strong>{{ a.overall_score }}</strong>
+
+                                <small>/100</small>
+
+                            {% else %}
+
+                                <span class="badge-short">—</span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </a>
+
+                {% endfor %}
+
             </div>
 
-            <h5>
-                Your analysis history will appear here
-            </h5>
+        {% else %}
 
-            <p>
-                Upload a cricket video to start building
-                your performance history.
-            </p>
+            <div class="empty-state">
 
-            <a href="{% url 'upload' %}"
-               class="btn btn-outline-primary">
+                <div class="empty-icon">
+                    📹
+                </div>
 
-                Upload Your First Video
+                <h5>
+                    Your analysis history will appear here
+                </h5>
 
-            </a>
+                <p>
+                    Upload a cricket video to start building
+                    your performance history.
+                </p>
 
-        </div>
+                <a href="{% url 'upload' %}"
+                   class="btn btn-outline-primary">
+
+                    Upload Your First Video
+
+                </a>
+
+            </div>
+
+        {% endif %}
 
     </div>
 

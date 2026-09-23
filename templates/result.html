@@ -1,0 +1,489 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis Result | AI Coach Cricketer</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/results.css' %}">
+
+</head>
+
+<body>
+
+<nav class="result-navbar">
+
+    <div class="container">
+
+        <a href="{% url 'dashboard' %}"
+           class="result-brand">
+
+            🏏 AI Coach Cricketer
+
+        </a>
+
+        <div class="nav-actions">
+
+            <a href="{% url 'dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main class="result-page">
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="result-heading">
+
+            <a href="{% url 'dashboard' %}"
+               class="back-link">
+
+                ← Back to Dashboard
+
+            </a>
+
+            <span class="page-label">
+                ANALYSIS RESULT
+            </span>
+
+            <h1>{{ result.title }}</h1>
+
+            <p>
+                Analysed on {{ result.uploaded_at|date:"F j, Y, g:i a" }}
+            </p>
+
+        </div>
+
+
+        <!-- STATUS BADGE -->
+
+        <div class="status-badge {{ result.status|lower }}">
+
+            {% if result.status == "COMPLETED" %}
+                ✅ Analysis Completed
+            {% elif result.status == "FAILED" %}
+                ❌ Analysis Failed
+            {% elif result.status == "PROCESSING" %}
+                ⏳ Processing…
+            {% else %}
+                ⏸ Pending
+            {% endif %}
+
+        </div>
+
+
+        {% if result.status == "FAILED" %}
+
+            <div class="error-card">
+
+                <div class="error-icon">⚠️</div>
+
+                <h3>We couldn't analyse this video</h3>
+
+                <p>{{ result.error_message|default:"An unexpected error occurred." }}</p>
+
+                <a href="{% url 'upload' %}"
+                   class="btn btn-primary">
+                    Upload Another Video
+                </a>
+
+            </div>
+
+        {% elif result.status != "COMPLETED" %}
+
+            <div class="processing-card">
+
+                <div class="spinner"></div>
+
+                <h3>Your analysis is still processing</h3>
+
+                <p>Please refresh the page in a moment.</p>
+
+            </div>
+
+        {% else %}
+
+            <!-- ================= HERO / SUMMARY ================= -->
+
+            <div class="result-hero">
+
+                <div class="hero-shot">
+
+                    <span class="hero-label">SHOT DETECTED</span>
+
+                    <h2>{{ result.detected_shot }}</h2>
+
+                    <span class="confidence">
+                        Confidence
+                        {{ result.shot_confidence|floatformat:0 }}%
+                    </span>
+
+                </div>
+
+                <div class="hero-score">
+
+                    <div class="score-ring"
+                         style="--p: {{ result.overall_score }}">
+
+                        <div class="score-inner">
+
+                            <strong>{{ result.overall_score }}</strong>
+
+                            <span>/100</span>
+
+                        </div>
+
+                    </div>
+
+                    <span class="hero-label">TECHNIQUE SCORE</span>
+
+                </div>
+
+                <div class="hero-meta">
+
+                    <div>
+                        <span>Pose Detection</span>
+                        <strong>{{ result.detection_percentage|floatformat:0 }}%</strong>
+                    </div>
+
+                    <div>
+                        <span>Frames Analysed</span>
+                        <strong>{{ result.total_frames }}</strong>
+                    </div>
+
+                    <div>
+                        <span>Pose Frames</span>
+                        <strong>{{ result.detected_frames }}</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= SCORE BREAKDOWN ================= -->
+
+            <div class="row g-4 mt-1">
+
+                <div class="col-lg-7">
+
+                    <div class="content-card">
+
+                        <div class="card-heading">
+
+                            <div>
+                                <span>TECHNIQUE</span>
+                                <h4>Score Breakdown</h4>
+                            </div>
+
+                            <span class="card-emoji">📊</span>
+
+                        </div>
+
+                        <div class="score-list">
+
+                            {% for label, val in score_items %}
+
+                                <div class="score-item">
+
+                                    <div class="score-top">
+
+                                        <span>{{ label }}</span>
+
+                                        <strong>{{ val }}</strong>
+
+                                    </div>
+
+                                    <div class="score-bar">
+
+                                        <div class="score-fill"
+                                             style="width: {{ val }}%"></div>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5">
+
+                    <div class="content-card">
+
+                        <div class="card-heading">
+
+                            <div>
+                                <span>INSIGHTS</span>
+                                <h4>Key Observations</h4>
+                            </div>
+
+                            <span class="card-emoji">🔍</span>
+
+                        </div>
+
+                        <div class="observations">
+
+                            {% for obs in result.key_observations %}
+
+                                <div class="observation {{ obs.icon }}">
+
+                                    <span class="obs-icon">{{ obs.icon }}</span>
+
+                                    <span>{{ obs.text }}</span>
+
+                                </div>
+
+                            {% empty %}
+
+                                <p class="muted">No observations recorded.</p>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= COACHING FEEDBACK ================= -->
+
+            <div class="content-card mt-4">
+
+                <div class="card-heading">
+
+                    <div>
+                        <span>AI COACH</span>
+                        <h4>Coaching Feedback</h4>
+                    </div>
+
+                    <span class="card-emoji">🤖</span>
+
+                </div>
+
+                <div class="feedback-list">
+
+                    {% for item in feedback_items %}
+
+                        <div class="feedback-item {{ item.severity }}">
+
+                            <div class="feedback-num">{{ forloop.counter }}</div>
+
+                            <div class="feedback-body">
+
+                                {% if item.issue %}
+
+                                    <h5>{{ item.issue }}</h5>
+
+                                    <p>{{ item.why }}</p>
+
+                                    <div class="suggestion">
+                                        <strong>💡 Suggestion:</strong>
+                                        {{ item.suggestion }}
+                                    </div>
+
+                                {% else %}
+
+                                    <p class="disclaimer">{{ item.why }}</p>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% empty %}
+
+                        <p class="muted">No feedback generated.</p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- ================= PROCESSED VIDEO ================= -->
+
+            <div class="content-card mt-4">
+
+                <div class="card-heading">
+
+                    <div>
+                        <span>OUTPUT</span>
+                        <h4>Processed Video</h4>
+                    </div>
+
+                    <span class="card-emoji">🎬</span>
+
+                </div>
+
+                {% if result.processed_video %}
+
+                    <video class="processed-video"
+                           controls
+                           preload="metadata">
+
+                        <source
+                            src="{{ result.processed_video.url }}"
+                            type="video/mp4">
+
+                        Your browser does not support video playback.
+
+                    </video>
+
+                {% else %}
+
+                    <p class="muted">No processed video was generated.</p>
+
+                {% endif %}
+
+            </div>
+
+            <!-- ================= DETAILED MEASUREMENTS ================= -->
+
+            <div class="content-card mt-4">
+
+                <div class="card-heading">
+
+                    <div>
+                        <span>DATA</span>
+                        <h4>Detailed Measurements</h4>
+                    </div>
+
+                    <span class="card-emoji">📐</span>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="measure-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Measurement</th>
+                                <th>Mean</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th>Range</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for m in result.measurements_display %}
+
+                                <tr>
+
+                                    <td>{{ m.label }} <small>{{ m.unit }}</small></td>
+
+                                    <td>{{ m.mean|floatformat:1 }}</td>
+
+                                    <td>{{ m.min|floatformat:1 }}</td>
+
+                                    <td>{{ m.max|floatformat:1 }}</td>
+
+                                    <td>{{ m.range|floatformat:1 }}</td>
+
+                                </tr>
+
+                            {% empty %}
+
+                                <tr>
+                                    <td colspan="5" class="muted">
+                                        No measurements available.
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- ================= SHOT REASONING ================= -->
+
+            {% if result.shot_reasoning %}
+
+                <div class="content-card mt-4">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <span>EXPLAINABILITY</span>
+                            <h4>Why this shot was detected</h4>
+                        </div>
+
+                        <span class="card-emoji">🧠</span>
+
+                    </div>
+
+                    <div class="reasoning-list">
+
+                        {% for line in result.shot_reasoning %}
+
+                            <p>• {{ line }}</p>
+
+                        {% endfor %}
+
+                        <p class="muted small mt-2">
+                            Shot classification is a rule-based baseline
+                            (no trained cricket-shot dataset). It is
+                            shown for transparency and may be replaced
+                            by a trained model in a future stage.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
