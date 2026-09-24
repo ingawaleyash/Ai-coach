@@ -15,6 +15,7 @@ urlpatterns = [
     path("logout/", views.logout_page, name="logout"),
     path("upload/", views.upload_video, name="upload"),
     path("result/<int:pk>/", views.analysis_result, name="analysis_result"),
+    path("history/", views.history, name="history"),
     path("accounts/", include("allauth.urls")),
 ]
 

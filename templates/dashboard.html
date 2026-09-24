@@ -21,176 +21,16 @@
         rel="stylesheet">
 
     <link rel="stylesheet"
+          href="{% static 'css/icons.css' %}">
+
+    <link rel="stylesheet"
           href="{% static 'css/dashboard.css' %}">
 
 </head>
 
 <body>
 
-
-<!-- ================= MOBILE NAVBAR ================= -->
-
-<nav class="mobile-navbar">
-
-    <div class="mobile-brand">
-        🏏 AI Coach Cricketer
-    </div>
-
-    <button
-        class="menu-button"
-        onclick="toggleSidebar()">
-
-        ☰
-
-    </button>
-
-</nav>
-
-
-<!-- ================= SIDEBAR ================= -->
-
-<aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-brand">
-
-        <div class="brand-icon">
-            🏏
-        </div>
-
-        <div>
-
-            <strong>AI Coach</strong>
-
-            <small>CRICKETER</small>
-
-        </div>
-
-    </div>
-
-
-    <div class="sidebar-section">
-
-        <small>MAIN MENU</small>
-
-        <a href="{% url 'dashboard' %}"
-           class="sidebar-link active">
-
-            <span>🏠</span>
-
-            Dashboard
-
-        </a>
-
-
-        <a href="{% url 'upload' %}"
-           class="sidebar-link">
-
-            <span>📹</span>
-
-            Upload Video
-
-        </a>
-
-
-        <a href="#"
-           class="sidebar-link">
-
-            <span>📊</span>
-
-            Analysis
-
-            <span class="coming-soon">
-                Soon
-            </span>
-
-        </a>
-
-
-        <a href="#"
-           class="sidebar-link">
-
-            <span>📋</span>
-
-            History
-
-            <span class="coming-soon">
-                Soon
-            </span>
-
-        </a>
-
-    </div>
-
-
-    <div class="sidebar-section">
-
-        <small>ACCOUNT</small>
-
-        <a href="#"
-           class="sidebar-link">
-
-            <span>👤</span>
-
-            Profile
-
-            <span class="coming-soon">
-                Soon
-            </span>
-
-        </a>
-
-
-        <a href="#"
-           class="sidebar-link">
-
-            <span>⚙️</span>
-
-            Settings
-
-            <span class="coming-soon">
-                Soon
-            </span>
-
-        </a>
-
-    </div>
-
-
-    <div class="sidebar-bottom">
-
-        <div class="sidebar-user">
-
-            <div class="user-avatar">
-
-                {{ request.user.username|first|upper }}
-
-            </div>
-
-            <div class="user-details">
-
-                <strong>
-                    {{ request.user.username }}
-                </strong>
-
-                <small>
-                    Player
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <a href="{% url 'logout' %}"
-           class="logout-link">
-
-            🚪 Logout
-
-        </a>
-
-    </div>
-
-</aside>
+{% include "_sidebar.html" with active_page="dashboard" %}
 
 
 <!-- ================= MAIN CONTENT ================= -->
@@ -210,7 +50,7 @@
 
             <h2>
                 Welcome back,
-                {{ request.user.username }} 👋
+                {{ request.user.username }}
             </h2>
 
         </div>
@@ -263,7 +103,11 @@
             <a href="{% url 'upload' %}"
                class="btn upload-button">
 
-                📹 Upload New Video →
+                <svg class="ic ic-sm"><use href="#i-upload"/></svg>
+
+                Upload New Video
+
+                <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg>
 
             </a>
 
@@ -272,7 +116,7 @@
 
         <div class="banner-icon">
 
-            🏏
+            <svg class="ic ic-3xl"><use href="#i-cricket"/></svg>
 
         </div>
 
@@ -289,7 +133,11 @@
             <div class="stat-card">
 
                 <div class="stat-icon blue">
-                    📹
+
+                    <svg class="ic ic-lg ic-primary">
+                        <use href="#i-video"/>
+                    </svg>
+
                 </div>
 
                 <div>
@@ -318,7 +166,11 @@
             <div class="stat-card">
 
                 <div class="stat-icon purple">
-                    🤖
+
+                    <svg class="ic ic-lg ic-success">
+                        <use href="#i-robot"/>
+                    </svg>
+
                 </div>
 
                 <div>
@@ -347,7 +199,11 @@
             <div class="stat-card">
 
                 <div class="stat-icon green">
-                    🎯
+
+                    <svg class="ic ic-lg ic-primary">
+                        <use href="#i-target"/>
+                    </svg>
+
                 </div>
 
                 <div>
@@ -400,7 +256,11 @@
                     </div>
 
                     <span class="card-emoji">
-                        🏏
+
+                        <svg class="ic ic-xl ic-primary">
+                            <use href="#i-cricket"/>
+                        </svg>
+
                     </span>
 
                 </div>
@@ -409,7 +269,11 @@
                 <div class="quick-content">
 
                     <div class="quick-icon">
-                        📹
+
+                        <svg class="ic ic-2xl ic-primary">
+                            <use href="#i-video"/>
+                        </svg>
+
                     </div>
 
                     <h5>
@@ -534,7 +398,9 @@
 
                 <div class="ai-note">
 
-                    💡 Upload a video to run a full AI analysis.
+                    <svg class="ic ic-sm"><use href="#i-bulb"/></svg>
+
+                    Upload a video to run a full AI analysis.
 
                 </div>
 
@@ -558,14 +424,31 @@
                 </span>
 
                 <h4>
-                    Recent Videos
+                    Recent Analyses
                 </h4>
 
             </div>
 
-            <span class="empty-label">
-                {% if recent %}{{ total_analyses }} total{% else %}No videos yet{% endif %}
-            </span>
+            <div class="heading-actions">
+
+                <span class="empty-label">
+                    {% if recent %}{{ total_analyses }} total{% else %}No videos yet{% endif %}
+                </span>
+
+                {% if recent %}
+                    <a href="{% url 'history' %}"
+                       class="btn btn-outline-primary btn-sm">
+
+                        View All
+
+                        <svg class="ic ic-sm">
+                            <use href="#i-arrow-right"/>
+                        </svg>
+
+                    </a>
+                {% endif %}
+
+            </div>
 
         </div>
 
@@ -579,13 +462,27 @@
                     <a href="{% url 'analysis_result' a.pk %}"
                        class="history-item">
 
-                        <div class="history-icon">
-                            {% if a.status == "COMPLETED" %}🎯{% elif a.status == "FAILED" %}⚠️{% else %}⏳{% endif %}
+                        <div class="history-icon status-{{ a.status|lower }}">
+
+                            {% if a.status == "COMPLETED" %}
+                                <svg class="ic ic-md ic-success">
+                                    <use href="#i-check-circle"/>
+                                </svg>
+                            {% elif a.status == "FAILED" %}
+                                <svg class="ic ic-md ic-danger">
+                                    <use href="#i-x-circle"/>
+                                </svg>
+                            {% else %}
+                                <svg class="ic ic-md ic-warning">
+                                    <use href="#i-clock"/>
+                                </svg>
+                            {% endif %}
+
                         </div>
 
                         <div class="history-info">
 
-                            <strong>{{ a.title }}</strong>
+                            <strong>{{ a.title|default:a.video.title }}</strong>
 
                             <small>{{ a.uploaded_at|date:"M j, Y" }}</small>
 
@@ -626,7 +523,11 @@
             <div class="empty-state">
 
                 <div class="empty-icon">
-                    📹
+
+                    <svg class="ic ic-2xl">
+                        <use href="#i-inbox"/>
+                    </svg>
+
                 </div>
 
                 <h5>
@@ -653,6 +554,9 @@
 
 
 </main>
+
+
+{% include "_sprite.html" %}
 
 
 <script>

@@ -21,6 +21,9 @@
         rel="stylesheet">
 
     <link rel="stylesheet"
+          href="{% static 'css/icons.css' %}">
+
+    <link rel="stylesheet"
           href="{% static 'css/auth.css' %}">
 
 </head>
@@ -39,7 +42,9 @@
             <a href="{% url 'home' %}"
                class="brand-logo">
 
-                🏏 AI Coach Cricketer
+                <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+
+                AI Coach Cricketer
 
             </a>
 
@@ -60,21 +65,27 @@
 
             <div class="brand-feature">
 
-                <span>✓</span>
+                <span>
+                    <svg class="ic ic-sm"><use href="#i-check"/></svg>
+                </span>
                 Video-based cricket analysis
 
             </div>
 
             <div class="brand-feature">
 
-                <span>✓</span>
+                <span>
+                    <svg class="ic ic-sm"><use href="#i-check"/></svg>
+                </span>
                 Personalized coaching insights
 
             </div>
 
             <div class="brand-feature">
 
-                <span>✓</span>
+                <span>
+                    <svg class="ic ic-sm"><use href="#i-check"/></svg>
+                </span>
                 Track your performance
 
             </div>
@@ -92,7 +103,9 @@
 
             <div class="mobile-logo">
 
-                🏏 AI Coach Cricketer
+                <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+
+                AI Coach Cricketer
 
             </div>
 
@@ -167,7 +180,9 @@
                     type="submit"
                     class="btn login-btn">
 
-                    Sign In →
+                    Sign In
+
+                    <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg>
 
                 </button>
 
@@ -203,7 +218,9 @@
             <a href="{% url 'home' %}"
                class="back-home">
 
-                ← Back to Home
+                <svg class="ic ic-sm"><use href="#i-arrow-left"/></svg>
+
+                Back to Home
 
             </a>
 
@@ -212,6 +229,8 @@
     </div>
 
 </div>
+
+{% include "_sprite.html" %}
 
 </body>
 

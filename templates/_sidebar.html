@@ -1,0 +1,165 @@
+{% comment %}
+Reusable app sidebar. Expects `active_page` to be one of:
+"dashboard" | "upload" | "history"
+{% endcomment %}
+
+<!-- ================= MOBILE NAVBAR ================= -->
+
+<nav class="mobile-navbar">
+
+    <a href="{% url 'dashboard' %}" class="mobile-brand">
+
+        <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+
+        AI Coach Cricketer
+
+    </a>
+
+    <button class="menu-button"
+            type="button"
+            aria-label="Toggle navigation"
+            onclick="toggleSidebar()">
+
+        <svg class="ic ic-lg"><use href="#i-menu"/></svg>
+
+    </button>
+
+</nav>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="brand-icon">
+
+            <svg class="ic ic-lg"><use href="#i-cricket"/></svg>
+
+        </div>
+
+        <div>
+
+            <strong>AI Coach</strong>
+
+            <small>CRICKETER</small>
+
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <small>MAIN MENU</small>
+
+        <a href="{% url 'dashboard' %}"
+           class="sidebar-link {% if active_page == 'dashboard' %}active{% endif %}">
+
+            <span>
+                <svg class="ic ic-md"><use href="#i-dashboard"/></svg>
+            </span>
+
+            Dashboard
+
+        </a>
+
+
+        <a href="{% url 'upload' %}"
+           class="sidebar-link {% if active_page == 'upload' %}active{% endif %}">
+
+            <span>
+                <svg class="ic ic-md"><use href="#i-video"/></svg>
+            </span>
+
+            Upload Video
+
+        </a>
+
+
+        <a href="{% url 'history' %}"
+           class="sidebar-link {% if active_page == 'history' %}active{% endif %}">
+
+            <span>
+                <svg class="ic ic-md"><use href="#i-history"/></svg>
+            </span>
+
+            History
+
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <small>ACCOUNT</small>
+
+        <a href="#"
+           class="sidebar-link">
+
+            <span>
+                <svg class="ic ic-md"><use href="#i-user"/></svg>
+            </span>
+
+            Profile
+
+            <span class="coming-soon">Soon</span>
+
+        </a>
+
+
+        <a href="#"
+           class="sidebar-link">
+
+            <span>
+                <svg class="ic ic-md"><use href="#i-settings"/></svg>
+            </span>
+
+            Settings
+
+            <span class="coming-soon">Soon</span>
+
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="sidebar-user">
+
+            <div class="user-avatar">
+
+                {{ request.user.username|first|upper }}
+
+            </div>
+
+            <div class="user-details">
+
+                <strong>
+                    {{ request.user.username }}
+                </strong>
+
+                <small>
+                    Player
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <a href="{% url 'logout' %}"
+           class="logout-link">
+
+            <svg class="ic ic-sm"><use href="#i-logout"/></svg>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</aside>

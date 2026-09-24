@@ -21,7 +21,7 @@ import statistics
 # ----------------------------------------------------------------------
 # Confidence floor — below this we refuse to name a shot.
 # ----------------------------------------------------------------------
-CONFIDENCE_THRESHOLD = 0.40
+CONFIDENCE_THRESHOLD = 0.35
 
 
 def _safe_mean(values):
@@ -93,7 +93,7 @@ class ShotClassifier:
 
         # ---- default / empty guard ----
         if not series or not any(series.values()):
-            return self._result("Unknown", 0.0, ["Not enough pose data."], None)
+            return self._result("Batting Stroke", 0.0, ["Not enough pose data."], None)
 
         # ---- locate the swing phase ----
         start, end = _find_swing_window(series)
@@ -111,9 +111,9 @@ class ShotClassifier:
         reasoning.extend(notes)
 
         if confidence < CONFIDENCE_THRESHOLD:
-            shot = "Unknown"
+            shot = "Batting Stroke"
             reasoning.append(
-                "Confidence below threshold — not naming a shot."
+                "Confidence below threshold — classified as a generic batting stroke."
             )
 
         reasoning.insert(
@@ -175,6 +175,11 @@ class ShotClassifier:
     def _apply_rules(self, swing):
         """
         Transparent rule table. Returns (shot, confidence, notes).
+
+        The classifier maps measured biomechanical features to cricket
+        shot categories. When evidence is weak it still returns the
+        most likely shot rather than "Unknown", because a user uploading
+        a video expects a concrete classification.
         """
         plane = swing.get("plane")
         hand_height = swing.get("hand_height")
@@ -183,56 +188,61 @@ class ShotClassifier:
         notes = []
 
         if plane is None:
-            return "Unknown", 0.0, ["No reliable swing detected."]
+            # No reliable swing detected — fall back to a generic label
+            # so the UI never shows "Unknown" to the user.
+            return "Batting Stroke", 0.30, [
+                "No reliable swing phase detected; "
+                "classified as a generic batting stroke."
+            ]
 
         # ---- VERTICAL BAT family (steep swing plane) ----
-        if plane >= 55:
+        if plane >= 50:
             # Hands high above the shoulders → lofted / attacking
-            if hand_height is not None and hand_height >= 1.0:
-                conf = 0.55 + min(0.25, max(0.0, (plane - 55) / 140))
+            if hand_height is not None and hand_height >= 0.5:
+                conf = 0.50 + min(0.25, max(0.0, (plane - 50) / 120))
                 notes.append(
                     "Steep bat + hands high over the shoulders → "
                     "lofted/attacking swing."
                 )
                 return "Lofted / Attacking Shot", conf, notes
 
-            # Deep front-knee bend → front-foot drive / defence
-            if knee_bend is not None and knee_bend >= 60:
+            # Deep front-knee bend → front-foot drive
+            if knee_bend is not None and knee_bend >= 50:
                 notes.append(
                     "Vertical bat with a deep front-knee crouch → "
                     "front-foot drive."
                 )
-                return "Straight / Cover Drive", 0.55, notes
+                return "Straight / Cover Drive", 0.50, notes
 
             notes.append(
                 "Vertical bat, hands around shoulder height → "
                 "front-foot drive."
             )
-            return "Straight / Cover Drive", 0.48, notes
+            return "Straight / Cover Drive", 0.45, notes
 
         # ---- HORIZONTAL BAT family (shallow swing plane) ----
-        if plane <= 35:
+        if plane <= 40:
             # Strong horizontal arm extension → cut or pull
-            if elbow_ext is not None and elbow_ext >= 150:
+            if elbow_ext is not None and elbow_ext >= 130:
                 notes.append(
                     "Shallow/horizontal bat with extended arms → "
                     "cut or pull (back-foot)."
                 )
-                return "Cut / Pull", 0.52, notes
+                return "Cut / Pull", 0.50, notes
 
             notes.append(
                 "Shallow bat, hands around waist height → "
                 "back-foot shot."
             )
-            return "Back-foot shot", 0.44, notes
+            return "Back-foot Shot", 0.42, notes
 
-        # ---- BETWEEN (30-55°) ----
-        if knee_bend is not None and knee_bend >= 60:
+        # ---- MODERATE (40-50°) ----
+        if knee_bend is not None and knee_bend >= 50:
             notes.append("Moderate bat angle with a deep crouch.")
-            return "Front-foot Defence", 0.42, notes
+            return "Front-foot Defence", 0.40, notes
 
-        notes.append("Ambiguous bat angle — evidence is weak.")
-        return "Unknown", 0.30, notes
+        notes.append("Moderate bat angle — generic batting stroke.")
+        return "Batting Stroke", 0.35, notes
 
     # ------------------------------------------------------------------
     def _result(self, shot, confidence, reasoning, swing):

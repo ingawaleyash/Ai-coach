@@ -21,6 +21,9 @@
         rel="stylesheet">
 
     <link rel="stylesheet"
+          href="{% static 'css/icons.css' %}">
+
+    <link rel="stylesheet"
           href="{% static 'css/results.css' %}">
 
 </head>
@@ -34,7 +37,9 @@
         <a href="{% url 'dashboard' %}"
            class="result-brand">
 
-            🏏 AI Coach Cricketer
+            <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+
+            AI Coach Cricketer
 
         </a>
 
@@ -42,6 +47,10 @@
 
             <a href="{% url 'dashboard' %}">
                 Dashboard
+            </a>
+
+            <a href="{% url 'history' %}">
+                History
             </a>
 
             <a href="{% url 'logout' %}">
@@ -66,7 +75,9 @@
             <a href="{% url 'dashboard' %}"
                class="back-link">
 
-                ← Back to Dashboard
+                <svg class="ic ic-sm"><use href="#i-arrow-left"/></svg>
+
+                Back to Dashboard
 
             </a>
 
@@ -88,13 +99,17 @@
         <div class="status-badge {{ result.status|lower }}">
 
             {% if result.status == "COMPLETED" %}
-                ✅ Analysis Completed
+                <svg class="ic ic-sm"><use href="#i-check-circle"/></svg>
+                Analysis Completed
             {% elif result.status == "FAILED" %}
-                ❌ Analysis Failed
+                <svg class="ic ic-sm"><use href="#i-x-circle"/></svg>
+                Analysis Failed
             {% elif result.status == "PROCESSING" %}
-                ⏳ Processing…
+                <svg class="ic ic-sm"><use href="#i-clock"/></svg>
+                Processing…
             {% else %}
-                ⏸ Pending
+                <svg class="ic ic-sm"><use href="#i-pause"/></svg>
+                Pending
             {% endif %}
 
         </div>
@@ -104,7 +119,13 @@
 
             <div class="error-card">
 
-                <div class="error-icon">⚠️</div>
+                <div class="error-icon">
+
+                    <svg class="ic ic-2xl">
+                        <use href="#i-alert"/>
+                    </svg>
+
+                </div>
 
                 <h3>We couldn't analyse this video</h3>
 
@@ -203,7 +224,11 @@
                                 <h4>Score Breakdown</h4>
                             </div>
 
-                            <span class="card-emoji">📊</span>
+                            <span class="card-emoji">
+                                <svg class="ic ic-xl">
+                                    <use href="#i-chart"/>
+                                </svg>
+                            </span>
 
                         </div>
 
@@ -249,7 +274,11 @@
                                 <h4>Key Observations</h4>
                             </div>
 
-                            <span class="card-emoji">🔍</span>
+                            <span class="card-emoji">
+                                <svg class="ic ic-xl">
+                                    <use href="#i-search"/>
+                                </svg>
+                            </span>
 
                         </div>
 
@@ -257,9 +286,23 @@
 
                             {% for obs in result.key_observations %}
 
-                                <div class="observation {{ obs.icon }}">
+                                <div class="observation obs-{{ obs.icon }}">
 
-                                    <span class="obs-icon">{{ obs.icon }}</span>
+                                    <span class="obs-icon">
+                                        {% if obs.icon == "warn" %}
+                                            <svg class="ic ic-sm">
+                                                <use href="#i-alert"/>
+                                            </svg>
+                                        {% elif obs.icon == "info" %}
+                                            <svg class="ic ic-sm">
+                                                <use href="#i-info"/>
+                                            </svg>
+                                        {% else %}
+                                            <svg class="ic ic-sm">
+                                                <use href="#i-check-circle"/>
+                                            </svg>
+                                        {% endif %}
+                                    </span>
 
                                     <span>{{ obs.text }}</span>
 
@@ -290,7 +333,11 @@
                         <h4>Coaching Feedback</h4>
                     </div>
 
-                    <span class="card-emoji">🤖</span>
+                    <span class="card-emoji">
+                        <svg class="ic ic-xl">
+                            <use href="#i-robot"/>
+                        </svg>
+                    </span>
 
                 </div>
 
@@ -311,7 +358,12 @@
                                     <p>{{ item.why }}</p>
 
                                     <div class="suggestion">
-                                        <strong>💡 Suggestion:</strong>
+                                        <strong>
+                                            <svg class="ic ic-sm">
+                                                <use href="#i-bulb"/>
+                                            </svg>
+                                            Suggestion:
+                                        </strong>
                                         {{ item.suggestion }}
                                     </div>
 
@@ -346,7 +398,11 @@
                         <h4>Processed Video</h4>
                     </div>
 
-                    <span class="card-emoji">🎬</span>
+                    <span class="card-emoji">
+                        <svg class="ic ic-xl">
+                            <use href="#i-film"/>
+                        </svg>
+                    </span>
 
                 </div>
 
@@ -383,7 +439,11 @@
                         <h4>Detailed Measurements</h4>
                     </div>
 
-                    <span class="card-emoji">📐</span>
+                    <span class="card-emoji">
+                        <svg class="ic ic-xl">
+                            <use href="#i-ruler"/>
+                        </svg>
+                    </span>
 
                 </div>
 
@@ -452,7 +512,11 @@
                             <h4>Why this shot was detected</h4>
                         </div>
 
-                        <span class="card-emoji">🧠</span>
+                        <span class="card-emoji">
+                            <svg class="ic ic-xl">
+                                <use href="#i-sparkle"/>
+                            </svg>
+                        </span>
 
                     </div>
 
@@ -460,7 +524,12 @@
 
                         {% for line in result.shot_reasoning %}
 
-                            <p>• {{ line }}</p>
+                            <p class="reason-line">
+                                <svg class="ic ic-sm">
+                                    <use href="#i-check"/>
+                                </svg>
+                                {{ line }}
+                            </p>
 
                         {% endfor %}
 
@@ -482,6 +551,9 @@
     </div>
 
 </main>
+
+
+{% include "_sprite.html" %}
 
 
 </body>

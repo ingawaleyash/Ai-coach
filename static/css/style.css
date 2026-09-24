@@ -21,6 +21,9 @@ body {
 .navbar-brand {
     font-size: 21px;
     letter-spacing: -0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
 }
 
 .nav-link {
@@ -54,7 +57,9 @@ body {
 }
 
 .hero-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: rgba(13, 110, 253, 0.15);
     border: 1px solid rgba(13, 110, 253, 0.35);
     color: #72a7ff;
@@ -88,6 +93,14 @@ body {
 
 .hero-buttons {
     margin-top: 30px;
+}
+
+/* Bootstrap's .btn is inline-block; make the icon sit inline with
+   the label instead of wrapping under it. */
+.hero-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .hero-stats {
@@ -127,8 +140,10 @@ body {
     gap: 12px;
 }
 
-.ai-card-header > span:first-child {
-    font-size: 28px;
+.ai-card-icon {
+    display: flex;
+    align-items: center;
+    color: #0d6efd;
 }
 
 .ai-card-header small {
@@ -166,7 +181,10 @@ body {
 }
 
 .cricket-icon {
-    font-size: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4dabf7;
 }
 
 .analysis-ring {
@@ -187,10 +205,21 @@ body {
 .analysis-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 13px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     color: #d7deea;
     font-size: 14px;
+}
+
+.analysis-item span {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.analysis-item .ic {
+    color: #6ea8fe;
 }
 
 .analysis-item strong {
@@ -255,7 +284,9 @@ body {
 }
 
 .feature-icon {
-    font-size: 32px;
+    display: flex;
+    align-items: center;
+    color: #0d6efd;
     margin-bottom: 20px;
 }
 
@@ -313,6 +344,16 @@ body {
 .footer p {
     color: #8996aa;
     margin: 10px 0 20px;
+}
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-brand .ic {
+    color: #6ea8fe;
 }
 
 

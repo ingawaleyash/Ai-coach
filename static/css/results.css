@@ -31,6 +31,9 @@ body {
     font-weight: 800;
     text-decoration: none;
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 9px;
 }
 
 .nav-actions a {
@@ -87,7 +90,9 @@ body {
 /* ================= STATUS BADGE ================= */
 
 .status-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     padding: 8px 18px;
     border-radius: 50px;
     font-weight: 700;
@@ -142,7 +147,9 @@ body {
 }
 
 .card-emoji {
-    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    color: #3b82f6;
 }
 
 /* ================= HERO ================= */
@@ -292,16 +299,22 @@ body {
     font-weight: 500;
 }
 
-.observation.✓ .obs-icon {
+.observation.obs-ok .obs-icon {
     color: #16a34a;
 }
 
-.observation.⚠ .obs-icon {
+.observation.obs-warn .obs-icon {
     color: #d97706;
 }
 
-.observation.ℹ .obs-icon {
+.observation.obs-info .obs-icon {
     color: #3b82f6;
+}
+
+.obs-icon {
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
 }
 
 /* ================= FEEDBACK ================= */
@@ -356,6 +369,13 @@ body {
     background: #eef6ff;
     padding: 10px 12px;
     border-radius: 10px;
+}
+
+.suggestion strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #b45309;
 }
 
 .disclaimer {
@@ -417,6 +437,17 @@ body {
     margin-bottom: 6px;
 }
 
+.reason-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.reason-line .ic {
+    color: #16a34a;
+    margin-top: 3px;
+}
+
 .error-card,
 .processing-card {
     text-align: center;
@@ -428,7 +459,9 @@ body {
 }
 
 .error-icon {
-    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    color: #f59e0b;
     margin-bottom: 12px;
 }
 

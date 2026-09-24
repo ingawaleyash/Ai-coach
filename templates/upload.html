@@ -21,6 +21,9 @@
         rel="stylesheet">
 
     <link rel="stylesheet"
+          href="{% static 'css/icons.css' %}">
+
+    <link rel="stylesheet"
           href="{% static 'css/upload.css' %}">
 
 </head>
@@ -37,7 +40,9 @@
         <a href="{% url 'dashboard' %}"
            class="upload-brand">
 
-            🏏 AI Coach Cricketer
+            <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+
+            AI Coach Cricketer
 
         </a>
 
@@ -46,6 +51,10 @@
 
             <a href="{% url 'dashboard' %}">
                 Dashboard
+            </a>
+
+            <a href="{% url 'history' %}">
+                History
             </a>
 
             <a href="{% url 'logout' %}">
@@ -72,7 +81,9 @@
             <a href="{% url 'dashboard' %}"
                class="back-link">
 
-                ← Back to Dashboard
+                <svg class="ic ic-sm"><use href="#i-arrow-left"/></svg>
+
+                Back to Dashboard
 
             </a>
 
@@ -108,7 +119,9 @@
                      id="dropzone">
 
                     <div class="upload-icon">
-                        📹
+                        <svg class="ic ic-xl ic-primary">
+                            <use href="#i-video"/>
+                        </svg>
                     </div>
 
                     <h3>
@@ -150,7 +163,9 @@
                      id="selectedFile">
 
                     <div class="file-icon">
-                        🎬
+                        <svg class="ic ic-lg ic-primary">
+                            <use href="#i-film"/>
+                        </svg>
                     </div>
 
                     <div class="file-info">
@@ -166,7 +181,7 @@
                     </div>
 
                     <span class="file-check">
-                        ✓
+                        <svg class="ic ic-sm"><use href="#i-check"/></svg>
                     </span>
 
                 </div>
@@ -202,7 +217,9 @@
                     type="submit"
                     class="upload-submit">
 
-                    📤 Upload Video
+                    <svg class="ic ic-md"><use href="#i-upload"/></svg>
+
+                    Upload Video
 
                 </button>
 
@@ -215,7 +232,9 @@
 
                 <div>
 
-                    🔒
+                    <svg class="ic ic-sm ic-success">
+                        <use href="#i-lock"/>
+                    </svg>
 
                     <span>
                         Your video is securely stored
@@ -225,7 +244,9 @@
 
                 <div>
 
-                    🤖
+                    <svg class="ic ic-sm ic-primary">
+                        <use href="#i-robot"/>
+                    </svg>
 
                     <span>
                         AI analysis runs automatically
@@ -244,7 +265,11 @@
         <div class="project-status">
 
             <div class="status-icon">
-                🚀
+
+                <svg class="ic ic-xl ic-primary">
+                    <use href="#i-zap"/>
+                </svg>
+
             </div>
 
             <div>
@@ -267,6 +292,9 @@
     </div>
 
 </main>
+
+
+{% include "_sprite.html" %}
 
 
 <script>

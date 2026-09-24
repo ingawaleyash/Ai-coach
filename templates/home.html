@@ -24,6 +24,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet"
+          href="{% static 'css/icons.css' %}">
+
+    <link rel="stylesheet"
           href="{% static 'css/style.css' %}">
 
 </head>
@@ -41,7 +44,9 @@
         <a class="navbar-brand fw-bold"
            href="{% url 'home' %}">
 
-            🏏 AI Coach Cricketer
+            <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+
+            AI Coach Cricketer
 
         </a>
 
@@ -149,7 +154,9 @@
 
                 <span class="hero-badge">
 
-                    🤖 AI-POWERED CRICKET COACHING
+                    <svg class="ic ic-sm"><use href="#i-robot"/></svg>
+
+                    AI-POWERED CRICKET COACHING
 
                 </span>
 
@@ -174,9 +181,11 @@
                 <div class="hero-buttons">
 
                     <a href="{% url 'register' %}"
-                       class="btn btn-primary btn-lg px-4">
+                       class="btn btn-primary btn-lg px-4 hero-btn">
 
-                        Get Started →
+                        Get Started
+
+                        <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg>
 
                     </a>
 
@@ -236,7 +245,9 @@
 
                     <div class="ai-card-header">
 
-                        <span>🏏</span>
+                        <span class="ai-card-icon">
+                            <svg class="ic ic-md"><use href="#i-cricket"/></svg>
+                        </span>
 
                         <div>
 
@@ -255,7 +266,7 @@
 
                         <div class="cricket-icon">
 
-                            🏏
+                            <svg class="ic ic-3xl"><use href="#i-cricket"/></svg>
 
                         </div>
 
@@ -270,7 +281,10 @@
 
                     <div class="analysis-item">
 
-                        <span>🎯 Technique</span>
+                        <span>
+                            <svg class="ic ic-sm"><use href="#i-target"/></svg>
+                            Technique
+                        </span>
 
                         <strong>Ready</strong>
 
@@ -279,7 +293,10 @@
 
                     <div class="analysis-item">
 
-                        <span>⚖️ Balance</span>
+                        <span>
+                            <svg class="ic ic-sm"><use href="#i-balance"/></svg>
+                            Balance
+                        </span>
 
                         <strong>Analysis</strong>
 
@@ -288,7 +305,10 @@
 
                     <div class="analysis-item">
 
-                        <span>🏃 Footwork</span>
+                        <span>
+                            <svg class="ic ic-sm"><use href="#i-run"/></svg>
+                            Footwork
+                        </span>
 
                         <strong>Analysis</strong>
 
@@ -349,7 +369,7 @@
 
                     <div class="feature-icon">
 
-                        🤖
+                        <svg class="ic ic-xl"><use href="#i-robot"/></svg>
 
                     </div>
 
@@ -373,7 +393,7 @@
 
                     <div class="feature-icon">
 
-                        📹
+                        <svg class="ic ic-xl"><use href="#i-video"/></svg>
 
                     </div>
 
@@ -397,7 +417,7 @@
 
                     <div class="feature-icon">
 
-                        📊
+                        <svg class="ic ic-xl"><use href="#i-chart"/></svg>
 
                     </div>
 
@@ -421,7 +441,7 @@
 
                     <div class="feature-icon">
 
-                        🎯
+                        <svg class="ic ic-xl"><use href="#i-bulb"/></svg>
 
                     </div>
 
@@ -554,7 +574,10 @@
 
     <div class="container text-center">
 
-        <h5>🏏 AI Coach Cricketer</h5>
+        <h5 class="footer-brand">
+            <svg class="ic ic-sm"><use href="#i-cricket"/></svg>
+            AI Coach Cricketer
+        </h5>
 
         <p>
 
@@ -572,6 +595,9 @@
 
 </footer>
 
+
+
+{% include "_sprite.html" %}
 
 
 <script

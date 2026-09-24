@@ -1,0 +1,49 @@
+/* =========================================================
+   SVG ICON SYSTEM
+   All icons are referenced from /static/img/sprite.svg via
+   <svg class="ic"><use href="#i-name"></use></svg>
+
+   Usage:   <svg class="ic ic-lg"><use href="#i-video"/></svg>
+
+   The sprite inherits stroke/fill from .ic so a single rule
+   themes every icon. Icons are sized in `em` so they scale
+   with their surrounding text.
+   ========================================================= */
+
+.ic {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    overflow: visible;
+}
+
+.ic-fill {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* --- size scale --- */
+
+.ic-xs { font-size: 0.7rem; }
+.ic-sm { font-size: 0.9rem; }
+.ic-md { font-size: 1.15rem; }
+.ic-lg { font-size: 1.5rem; }
+.ic-xl { font-size: 2.25rem; }
+.ic-2xl { font-size: 3.5rem; }
+.ic-3xl { font-size: 5rem; }
+
+/* --- semantic colours --- */
+
+.ic-primary { color: #0d6efd; }
+.ic-success { color: #16a34a; }
+.ic-danger  { color: #dc2626; }
+.ic-warning { color: #f59e0b; }
+.ic-info    { color: #3b82f6; }

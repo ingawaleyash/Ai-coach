@@ -1,0 +1,397 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis History | AI Coach Cricketer</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/icons.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/dashboard.css' %}">
+
+</head>
+
+<body>
+
+{% include "_sidebar.html" with active_page="history" %}
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="main-content">
+
+
+    <!-- TOP BAR -->
+
+    <div class="top-bar">
+
+        <div>
+
+            <span class="page-label">
+                ANALYSIS HISTORY
+            </span>
+
+            <h2>
+                Your Previous Analyses
+            </h2>
+
+        </div>
+
+
+        <div class="top-user">
+
+            <div class="top-avatar">
+
+                {{ request.user.username|first|upper }}
+
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ request.user.username }}
+                </strong>
+
+                <small>
+                    Cricket Player
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUMMARY STATS -->
+
+    <div class="row g-4 stats-row">
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+
+                    <svg class="ic ic-lg ic-primary">
+                        <use href="#i-inbox"/>
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <span>TOTAL ANALYSES</span>
+
+                    <h3>{{ total_analyses }}</h3>
+
+                    <small>All videos you've run</small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+
+                    <svg class="ic ic-lg ic-success">
+                        <use href="#i-check-circle"/>
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <span>COMPLETED</span>
+
+                    <h3>{{ completed }}</h3>
+
+                    <small>Successfully analysed</small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <svg class="ic ic-lg ic-primary">
+                        <use href="#i-target"/>
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <span>BEST SCORE</span>
+
+                    <h3>
+                        {% if best_score %}{{ best_score }}{% else %}--{% endif %}
+                    </h3>
+
+                    <small>
+                        {% if avg_score %}
+                            Average {{ avg_score }}/100
+                        {% else %}
+                            Your highest technique score
+                        {% endif %}
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HISTORY LIST -->
+
+    <div class="content-card recent-card">
+
+        <div class="card-heading">
+
+            <div>
+
+                <span>HISTORY</span>
+
+                <h4>
+                    All Analyses
+                </h4>
+
+            </div>
+
+            <a href="{% url 'upload' %}"
+               class="btn btn-primary btn-sm history-upload-btn">
+
+                <svg class="ic ic-sm"><use href="#i-upload"/></svg>
+
+                New Analysis
+
+            </a>
+
+        </div>
+
+
+        <!-- STATUS FILTERS -->
+
+        <div class="history-filters">
+
+            <a href="{% url 'history' %}"
+               class="filter-pill {% if not active_status %}active{% endif %}">
+                All <span>{{ total_analyses }}</span>
+            </a>
+
+            {% for code, label in valid_statuses %}
+                <a href="{% url 'history' %}?status={{ code }}"
+                   class="filter-pill {% if active_status == code %}active{% endif %}">
+                    {{ label }}
+                </a>
+            {% endfor %}
+
+        </div>
+
+
+        {% if analyses %}
+
+            <div class="history-list">
+
+                {% for a in analyses %}
+
+                    <a href="{% url 'analysis_result' a.pk %}"
+                       class="history-item">
+
+                        <div class="history-icon status-{{ a.status|lower }}">
+
+                            {% if a.status == "COMPLETED" %}
+                                <svg class="ic ic-md ic-success">
+                                    <use href="#i-check-circle"/>
+                                </svg>
+                            {% elif a.status == "FAILED" %}
+                                <svg class="ic ic-md ic-danger">
+                                    <use href="#i-x-circle"/>
+                                </svg>
+                            {% else %}
+                                <svg class="ic ic-md ic-warning">
+                                    <use href="#i-clock"/>
+                                </svg>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="history-info">
+
+                            <strong>{{ a.title|default:a.video.title }}</strong>
+
+                            <small>
+                                {{ a.uploaded_at|date:"M j, Y, g:i a" }}
+                            </small>
+
+                        </div>
+
+                        <div class="history-shot">
+
+                            <span>
+                                {{ a.detected_shot|default:"—" }}
+                            </span>
+
+                            <small>
+                                {% if a.shot_confidence %}
+                                    {{ a.shot_confidence|floatformat:0 }}% confidence
+                                {% else %}
+                                    {{ a.status|title }}
+                                {% endif %}
+                            </small>
+
+                        </div>
+
+                        <div class="history-score">
+
+                            {% if a.status == "COMPLETED" %}
+
+                                <strong>{{ a.overall_score }}</strong>
+
+                                <small>/100</small>
+
+                            {% else %}
+
+                                <span class="badge-short">—</span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <svg class="ic ic-md history-arrow">
+                            <use href="#i-arrow-right"/>
+                        </svg>
+
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PAGINATION -->
+
+            {% if page_obj.paginator.num_pages > 1 %}
+
+                <nav class="history-pagination"
+                     aria-label="History pages">
+
+                    {% if page_obj.has_previous %}
+                        <a class="page-btn"
+                           href="?{% if active_status %}status={{ active_status }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">
+                            <svg class="ic ic-sm"><use href="#i-arrow-left"/></svg>
+                            Prev
+                        </a>
+                    {% endif %}
+
+                    <span class="page-info">
+                        Page {{ page_obj.number }} of
+                        {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a class="page-btn"
+                           href="?{% if active_status %}status={{ active_status }}&amp;{% endif %}page={{ page_obj.next_page_number }}">
+                            Next
+                            <svg class="ic ic-sm"><use href="#i-arrow-right"/></svg>
+                        </a>
+                    {% endif %}
+
+                </nav>
+
+            {% endif %}
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <svg class="ic ic-2xl">
+                        <use href="#i-inbox"/>
+                    </svg>
+
+                </div>
+
+                <h5>
+                    {% if active_status %}
+                        No {{ active_status|title }} analyses yet
+                    {% else %}
+                        Your analysis history will appear here
+                    {% endif %}
+                </h5>
+
+                <p>
+                    Upload a cricket video to start building
+                    your performance history.
+                </p>
+
+                <a href="{% url 'upload' %}"
+                   class="btn btn-primary">
+
+                    Upload Your First Video
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</main>
+
+
+{% include "_sprite.html" %}
+
+
+<script>
+
+function toggleSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("show");
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -42,6 +42,10 @@ body {
 
     font-size: 22px;
     font-weight: 800;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .brand-content h1 {
@@ -68,12 +72,14 @@ body {
 .brand-feature {
     margin-top: 22px;
     color: #d9e0eb;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .brand-feature span {
     color: #20c997;
-    font-weight: bold;
-    margin-right: 10px;
+    display: flex;
 }
 
 
@@ -159,6 +165,11 @@ body {
     font-weight: 700;
 
     margin-top: 5px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
 }
 
 .login-btn:hover {
@@ -182,7 +193,10 @@ body {
 }
 
 .back-home {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
 
     text-align: center;
 
@@ -213,7 +227,9 @@ body {
     }
 
     .mobile-logo {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 10px;
 
         font-weight: 800;
         font-size: 20px;

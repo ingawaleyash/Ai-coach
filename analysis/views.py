@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 from .models import UploadedVideo, AnalysisResult
 from .ai.pipeline import run_pipeline, AnalysisError
@@ -19,6 +22,9 @@ logger = logging.getLogger(__name__)
 # ------------------------------------------------------------------
 ALLOWED_VIDEO_EXTENSIONS = {".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"}
 MAX_VIDEO_SIZE = 200 * 1024 * 1024  # 200 MB
+
+# Analyses shown per page on the history page
+PER_PAGE = 10
 
 
 def _validate_video(video_file):
@@ -236,6 +242,65 @@ def upload_video(request):
             return redirect("analysis_result", pk=result.pk)
 
     return render(request, "upload.html")
+
+
+# ----------------------------
+# History page
+# ----------------------------
+@login_required(login_url="login")
+def history(request):
+    """
+    Every previous analysis for the signed-in user, newest first.
+
+    Supports a `status` filter (?status=COMPLETED) and simple
+    pagination so the list stays usable as it grows.
+    """
+    all_analyses = AnalysisResult.objects.filter(
+        user=request.user
+    ).select_related("video")
+
+    # --- status filter ---
+    status = (request.GET.get("status") or "").upper()
+    valid_statuses = {code for code, _ in AnalysisResult.STATUS_CHOICES}
+    if status in valid_statuses:
+        all_analyses = all_analyses.filter(status=status)
+
+    all_analyses = all_analyses.order_by("-uploaded_at")
+
+    # --- pagination ---
+    paginator = Paginator(all_analyses, PER_PAGE)
+    page_number = request.GET.get("page")
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
+    # --- summary stats over the full (unfiltered) history ---
+    completed_scores = list(
+        AnalysisResult.objects.filter(
+            user=request.user, status="COMPLETED"
+        ).values_list("overall_score", flat=True)
+    )
+
+    context = {
+        "page_obj": page_obj,
+        "analyses": page_obj.object_list,
+        "total_analyses": AnalysisResult.objects.filter(
+            user=request.user
+        ).count(),
+        "completed": len(completed_scores),
+        "active_status": status,
+        "valid_statuses": AnalysisResult.STATUS_CHOICES,
+        "best_score": max(completed_scores) if completed_scores else None,
+        "avg_score": (
+            round(sum(completed_scores) / len(completed_scores), 1)
+            if completed_scores
+            else None
+        ),
+    }
+    return render(request, "history.html", context)
 
 
 # ----------------------------
